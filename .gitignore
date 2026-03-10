@@ -1,0 +1,39 @@
+# Books / E-books (avoid copyright issues)
+*.pdf
+*.epub
+*.mobi
+*.azw3
+*.djvu
+*.cbz
+*.cbr
+
+# Editor / IDE
+.vscode/
+.agents/
+.idea/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Django
+db.sqlite3
+db.sqlite3-journal
+*.log
+local_settings.py
+media/
+staticfiles/
+
+# Secrets
+.env
+*.secret
+
+# OS junk
+.DS_Store
+Thumbs.db
