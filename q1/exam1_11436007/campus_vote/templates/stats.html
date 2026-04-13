@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}統計頁 - 校園投票系統{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>統計頁</h2>
+    <p>問題總數：{{ question_count }}</p>
+    <p>選項總數：{{ choice_count }}</p>
+    <p>開放中的問題數：{{ open_count }}</p>
+</div>
+
+<div class="card">
+    <h3>每題最高票選項</h3>
+    {% for item in top_choices %}
+    <div class="card">
+        <strong>{{ item.question.title }}</strong>
+        {% if item.top %}
+        <p class="muted">最高票：{{ item.top.choice_text }}（{{ item.top.votes }} 票）</p>
+        {% else %}
+        <p class="muted">尚未建立選項。</p>
+        {% endif %}
+    </div>
+    {% empty %}
+    <p class="muted">目前沒有任何題目可統計。</p>
+    {% endfor %}
+</div>
+{% endblock %}

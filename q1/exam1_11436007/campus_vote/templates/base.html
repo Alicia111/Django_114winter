@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}校園投票系統{% endblock %}</title>
+    <style>
+        body { font-family: -apple-system, "Noto Sans TC", sans-serif; background: linear-gradient(135deg,#fef6f0,#f0f4ff); margin: 0; padding: 24px; color: #222; }
+        .wrap { max-width: 720px; margin: 0 auto; }
+        .card { background: #fff; border-radius: 12px; padding: 20px 24px; margin-bottom: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        nav a { display: inline-block; background: #1f2a44; color: #fff; padding: 6px 14px; border-radius: 999px; text-decoration: none; margin-right: 6px; font-size: 14px; }
+        nav a:hover { background: #374366; }
+        h1, h2, h3 { margin-top: 0; }
+        .muted { color: #888; font-size: 13px; }
+        .tag { display: inline-block; background: #eef; color: #335; padding: 2px 8px; border-radius: 6px; font-size: 12px; margin-left: 4px; }
+        ul, ol { margin: 6px 0; padding-left: 20px; }
+        a.qlink { color: #1f2a44; font-weight: bold; text-decoration: none; }
+        a.qlink:hover { text-decoration: underline; }
+        footer { text-align: center; color: #999; font-size: 12px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    {# 共用導覽列 — 由 base.html 提供，不可在每頁重寫 #}
+    <div class="card">
+        <h1>校園投票系統</h1>
+        <nav>
+            <a href="{% url 'home' %}">首頁</a>
+            <a href="{% url 'stats' %}">統計頁</a>
+        </nav>
+    </div>
+
+    {% block content %}{% endblock %}
+
+    <footer>All pages reuse the same navigation through base.html.</footer>
+</div>
+</body>
+</html>

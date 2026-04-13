@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}FAQ - Campus Activity Info Station{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>Frequently Asked Questions</h2>
+    <p class="muted">Grouped FAQ items rendered from view context.</p>
+</div>
+
+{% for category in categories %}
+<div class="card">
+    <h3>{{ category.name }}</h3>
+    <ul>
+        {% for question in category.questions %}
+        <li>{{ question }}</li>
+        {% empty %}
+        <li class="muted">Questions will be added soon.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endfor %}
+{% endblock %}

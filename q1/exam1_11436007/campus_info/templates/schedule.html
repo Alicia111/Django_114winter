@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+{% block title %}Schedule - Campus Activity Info Station{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>Weekly Schedule</h2>
+    <p class="muted">Days covered this week: {{ days|length }}</p>
+</div>
+
+{# 3-level nested loop: days -> slots -> activities #}
+{% for day in days %}
+<div class="card">
+    <h3>Day {{ forloop.counter }}: {{ day.name }}</h3>
+    <ul>
+        {% for slot in day.slots %}
+        <li>
+            <strong>{{ slot.name }}</strong>
+            <ul>
+                {% for activity in slot.activities %}
+                <li>{{ activity.title }} at {{ activity.location }} <span class="tag">{{ activity.tag }}</span></li>
+                {% empty %}
+                <li class="muted">No activities planned.</li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endfor %}
+{% endblock %}

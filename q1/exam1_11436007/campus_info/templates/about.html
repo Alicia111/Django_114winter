@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}About - Campus Activity Info Station{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>About This Site</h2>
+    <p>This demo project shows how to organize a small Django information site with function-based and class-based views.</p>
+</div>
+<div class="card">
+    <h3>Implementation Checklist</h3>
+    <ul>
+        {% for item in checklist %}
+        <li>{{ item }}</li>
+        {% empty %}
+        <li class="muted">No items recorded.</li>
+        {% endfor %}
+    </ul>
+    {# comment block required by spec #}
+    {% comment %}This page is rendered with TemplateView.get_context_data(){% endcomment %}
+</div>
+{% endblock %}

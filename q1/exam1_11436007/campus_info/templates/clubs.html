@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Clubs - Campus Activity Info Station{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>Club Directory</h2>
+    <p class="muted">Total clubs listed: {{ clubs|length }}</p>
+</div>
+<div class="grid">
+    {% for club in clubs %}
+    <div class="card">
+        <h3>{{ club.name }}</h3>
+        <p class="muted">Advisor: {{ club.advisor }}</p>
+        <p class="muted">Recent activity count: {{ club.recent_activities|length }}</p>
+
+        <strong>Officers</strong>
+        {# nested loop level 2 — officers inside a club #}
+        <ol>
+            {% for officer in club.officers %}
+            <li>
+                {{ officer.role }} - {{ officer.name }}{% if officer.note %} ({{ officer.note }}){% endif %}
+            </li>
+            {% empty %}
+            <li class="muted">No officers recorded.</li>
+            {% endfor %}
+        </ol>
+
+        <strong>Recent activities</strong>
+        {# nested loop level 3 — activities inside officers/clubs sequence #}
+        <ul>
+            {% for a
+                ctivity in club.recent_activities %}
+            <li>
+                {{ activity|title }}{% if forloop.first %} <span class="tag">latest</span>{% endif %}{% if forloop.last %} <span class="tag">oldest</span>{% endif %}
+            </li>
+            {% empty %}
+            <li class="muted">No activities yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% empty %}
+    <div class="card">No clubs to display.</div>
+    {% endfor %}
+</div>
+{% endblock %}

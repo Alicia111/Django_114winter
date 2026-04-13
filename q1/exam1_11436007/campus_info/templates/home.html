@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Home - Campus Activity Info Station{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>{{ page_title|title }}</h2>
+    <p>{{ intro }}</p>
+    <p class="muted">This home page links to {{ sections|length }} core sections.</p>
+</div>
+<div class="grid">
+    {% for section in sections %}
+    <div class="card">
+        <div class="muted">Section {{ forloop.counter }}</div>
+        <h3>{{ section.title }}</h3>
+        <p>{{ section.description }}</p>
+        <a href="{% url section.url_name %}">Open section</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

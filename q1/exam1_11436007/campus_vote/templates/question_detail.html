@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{ question.title }} - 校園投票系統{% endblock %}
+{% block content %}
+<div class="card">
+    <h2>投票題目詳細頁</h2>
+    <h3>{{ question.title }}</h3>
+    <p class="muted">發布時間：{{ question.pub_date|date:"DATETIME_FORMAT" }}</p>
+    <p>{{ question.description }}</p>
+    <p>
+        狀態：
+        {% if question.is_open %}
+            已開放
+        {% else %}
+            已截止
+        {% endif %}
+    </p>
+
+    <ol>
+        {% for choice in question.choices.all %}
+        <li>{{ choice.choice_text }}：{{ choice.votes }} 票</li>
+        {% empty %}
+        <li class="muted">這題還沒有任何選項。</li>
+        {% endfor %}
+    </ol>
+
+    <p><a href="{% url 'home' %}">← 回首頁</a></p>
+</div>
+{% endblock %}
