@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls e:/Nekolia_project/guthib/Django_114winter/q1/*.pdf)"
+    ]
+  }
+}
