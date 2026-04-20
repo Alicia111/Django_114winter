@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post, Author
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -10,4 +10,12 @@ class PostAdmin(admin.ModelAdmin):
     )
 
 
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "bio",
+    )
+
+
 admin.site.register(Post, PostAdmin)
+admin.site.register(Author, AuthorAdmin)

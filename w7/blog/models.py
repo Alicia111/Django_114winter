@@ -2,10 +2,18 @@ from django.db import models
 from django.urls import reverse
 
 
+class Author(models.Model):
+    name = models.CharField(max_length=100)
+    bio = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey(
-        "auth.User",
+        "Author",
         on_delete=models.CASCADE,
     )
     body = models.TextField()
