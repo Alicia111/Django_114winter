@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+  <h1>一般使用者名冊</h1>
+  <p>本頁顯示由程式 User model 建立的一般使用者，不使用 User.CharField 假裝角色名稱。</p>
+  <span class="badge-count">共 {{ total }} 位</span>
+</div>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>username</th>
+      <th>email</th>
+      <th>角色概念</th>
+      <th>is_staff</th>
+      <th>is_superuser</th>
+      <th>date_joined</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+      <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          {% for group in user.groups.all %}
+            <span class="badge-role">{{ group.name }}</span>
+          {% empty %}
+            <span class="text-muted">—</span>
+          {% endfor %}
+        </td>
+        <td>{{ user.is_staff }}</td>
+        <td>{{ user.is_superuser }}</td>
+        <td>{{ user.date_joined }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="6" class="empty-msg">沒有一般使用者。</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

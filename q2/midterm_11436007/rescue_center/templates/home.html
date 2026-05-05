@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+  <h1>OPERATIONS DASHBOARD</h1>
+  <p>即時掌握災害事件、物資需求與處置紀錄</p>
+  <div class="header-actions">
+    <a href="{% url 'incident_search' %}" class="btn btn-secondary">事件查詢</a>
+    <a href="{% url 'incident_new' %}" class="btn btn-primary">新增事件</a>
+  </div>
+</div>
+
+<p class="result-count">共 {{ incidents|length }} 筆 Incident</p>
+<div class="incident-list">
+  {% for incident in incidents %}
+    <div class="incident-card {% if incident.is_active %}active{% else %}closed{% endif %}">
+      <div class="card-top">
+        <span class="badge-priority">P{{ incident.priority }}</span>
+        <span class="badge-category">{{ incident.category }}</span>
+        <span class="badge-status {% if incident.is_active %}badge-active{% else %}badge-closed{% endif %}">
+          {% if incident.is_active %}處理中{% else %}已結案{% endif %}
+        </span>
+      </div>
+      <h3>#{{ incident.pk }} {{ incident.title }}</h3>
+      <p class="card-location">{{ incident.location }}</p>
+      <p class="card-reporter">通報者：{{ incident.reporter.username }}</p>
+      <p class="card-time">{{ incident.created_at }}</p>
+      <a href="{{ incident.get_absolute_url }}" class="btn btn-sm">進入詳細</a>
+    </div>
+  {% empty %}
+    <p class="empty-msg">目前沒有任何 Incident 資料。
+      <a href="{% url 'incident_search' %}">查詢事件</a>
+    </p>
+  {% endfor %}
+</div>
+{% endblock %}

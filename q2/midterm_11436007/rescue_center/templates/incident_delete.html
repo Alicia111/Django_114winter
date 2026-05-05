@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header delete-header">
+  <h1>DELETE INCIDENT</h1>
+  <h2>刪除 Incident #{{ object.pk }}</h2>
+  <p>刪除後將無法復原，請確認是否要刪除此事件。</p>
+</div>
+
+<div class="form-container">
+  <h3>確認刪除</h3>
+  <p>你確定要刪除「<strong>{{ object.title }}</strong>」這筆事件與所有相關物資需求及處置紀錄嗎？</p>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-actions">
+      <button type="submit" class="btn btn-danger">確認刪除</button>
+      <a href="{{ object.get_absolute_url }}" class="btn btn-secondary">取消</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

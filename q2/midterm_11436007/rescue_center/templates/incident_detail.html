@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+  <h1>INCIDENT DETAIL</h1>
+  <h2>{{ incident }}</h2>
+  <p>通報者：{{ incident.reporter.username }}，建立時間：{{ incident.created_at }}</p>
+  <div class="header-actions">
+    <a href="{% url 'incident_edit' incident.pk %}" class="btn btn-secondary">修改事件</a>
+    <a href="{% url 'incident_delete' incident.pk %}" class="btn btn-danger">刪除事件</a>
+  </div>
+</div>
+
+<div class="detail-grid">
+  <div class="detail-main">
+    <h3>Incident 基本資料</h3>
+    <table class="data-table">
+      <tr><th>標題</th><td>{{ incident.title }}</td></tr>
+      <tr><th>分類</th><td>{{ incident.category }}</td></tr>
+      <tr><th>優先等級</th><td>P{{ incident.priority }}</td></tr>
+      <tr><th>地點</th><td>{{ incident.location }}</td></tr>
+      <tr><th>通報者</th><td>{{ incident.reporter.username }}</td></tr>
+      <tr><th>狀態</th><td>{% if incident.is_active %}處理中{% else %}已結案{% endif %}</td></tr>
+      <tr><th>描述</th><td>{{ incident.description }}</td></tr>
+    </table>
+  </div>
+
+  <div class="detail-side">
+    <h3>巢狀關聯資料</h3>
+    <pre>
+Incident
+├── ResourceRequest list ({{ incident.resource_requests.count }} 筆)
+└── ActionLog list ({{ incident.action_logs.count }} 筆)
+    </pre>
+  </div>
+</div>
+
+<div class="detail-section">
+  <h3>物資需求 ResourceRequest <span class="count-badge">{{ incident.resource_requests.count }} 筆</span></h3>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>物資名稱</th><th>數量</th><th>狀態</th><th>是否緊急</th><th>需求提出者 username</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for rr in incident.resource_requests.all %}
+        <tr class="{% if rr.is_urgent %}urgent{% endif %}">
+          <td>{{ rr.item_name }}</td>
+          <td>{{ rr.quantity }}</td>
+          <td>{{ rr.status }}</td>
+          <td>{% if rr.is_urgent %}緊急{% else %}—{% endif %}</td>
+          <td>{{ rr.requested_by.username }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="5" class="empty-msg">無物資需求</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="detail-section">
+  <h3>處置紀錄 ActionLog <span class="count-badge">{{ incident.action_logs.count }} 筆</span></h3>
+  {% for log in incident.action_logs.all %}
+    <div class="log-entry">
+      <span class="log-actor">{{ log.actor.username }}</span>
+      <span class="log-time">{{ log.created_at }}</span>
+      <p class="log-note">{{ log.note }}</p>
+    </div>
+  {% empty %}
+    <p class="empty-msg">無處置紀錄</p>
+  {% endfor %}
+</div>
+{% endblock %}

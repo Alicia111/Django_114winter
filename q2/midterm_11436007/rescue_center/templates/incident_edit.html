@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+  <h1>UPDATE INCIDENT</h1>
+  <h2>修改 Incident #{{ object.pk }}</h2>
+  <p>事件標題不允許修改，已凍結。目前標題：{{ object.title }}</p>
+</div>
+
+<div class="form-container">
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">儲存修改</button>
+      <a href="{{ object.get_absolute_url }}" class="btn btn-secondary">取消</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

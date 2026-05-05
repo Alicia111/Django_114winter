@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+  <h1>事件、物資與處置紀錄統計</h1>
+  <p>統計資訊由 view 查詢後傳入 template，不在 template 中硬寫資料。</p>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-number">{{ incident_total }}</div>
+    <div class="stat-label">Incident 總數</div>
+  </div>
+  <div class="stat-card active">
+    <div class="stat-number">{{ incident_active }}</div>
+    <div class="stat-label">Active Incident</div>
+  </div>
+  <div class="stat-card closed">
+    <div class="stat-number">{{ incident_closed }}</div>
+    <div class="stat-label">Closed Incident</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">{{ resource_total }}</div>
+    <div class="stat-label">ResourceRequest 總數</div>
+  </div>
+  <div class="stat-card urgent">
+    <div class="stat-number">{{ resource_urgent }}</div>
+    <div class="stat-label">Urgent ResourceRequest</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">{{ actionlog_total }}</div>
+    <div class="stat-label">ActionLog 總數</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">{{ user_total }}</div>
+    <div class="stat-label">一般 User 數量</div>
+  </div>
+</div>
+
+<h2>每個 Incident 對應的 ResourceRequest / ActionLog 數量</h2>
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>Incident</th>
+      <th>通報者</th>
+      <th>ResourceRequest 數</th>
+      <th>ActionLog 數</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for inc in incident_stats %}
+      <tr>
+        <td>{{ inc }}</td>
+        <td>{{ inc.reporter.username }}</td>
+        <td>{{ inc.rr_count }}</td>
+        <td>{{ inc.al_count }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="4" class="empty-msg">無資料</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

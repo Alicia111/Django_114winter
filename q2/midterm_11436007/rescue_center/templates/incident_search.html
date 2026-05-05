@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+  <h1>事件查詢與關聯條件篩選</h1>
+</div>
+
+<form method="get" action="{% url 'incident_search' %}" class="search-form">
+  <div class="form-row">
+    <label>關鍵字 q
+      <input type="text" name="q" value="{{ q }}" placeholder="搜尋 title / location / desc">
+    </label>
+    <label>分類 category
+      <select name="category">
+        <option value="">全部分類</option>
+        <option value="fire" {% if category == "fire" %}selected{% endif %}>fire</option>
+        <option value="flood" {% if category == "flood" %}selected{% endif %}>flood</option>
+        <option value="medical" {% if category == "medical" %}selected{% endif %}>medical</option>
+        <option value="power" {% if category == "power" %}selected{% endif %}>power</option>
+        <option value="other" {% if category == "other" %}selected{% endif %}>other</option>
+      </select>
+    </label>
+    <label>優先等級 priority
+      <select name="priority">
+        <option value="">全部等級</option>
+        {% for i in "12345" %}
+          <option value="{{ i }}" {% if priority == i %}selected{% endif %}>{{ i }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>處理狀態 is_active
+      <select name="is_active">
+        <option value="">全部狀態</option>
+        <option value="true" {% if is_active == "true" %}selected{% endif %}>處理中</option>
+        <option value="false" {% if is_active == "false" %}selected{% endif %}>已結案</option>
+      </select>
+    </label>
+  </div>
+  <div class="form-row">
+    <label>通報者 reporter (username 或 id)
+      <input type="text" name="reporter" value="{{ reporter }}">
+    </label>
+    <label>物資狀態 ResourceRequest.status
+      <select name="rr_status">
+        <option value="">不限</option>
+        <option value="pending" {% if rr_status == "pending" %}selected{% endif %}>pending</option>
+        <option value="approved" {% if rr_status == "approved" %}selected{% endif %}>approved</option>
+        <option value="delivered" {% if rr_status == "delivered" %}selected{% endif %}>delivered</option>
+      </select>
+    </label>
+    <label>緊急物資 ResourceRequest.is_urgent
+      <select name="rr_urgent">
+        <option value="">不限</option>
+        <option value="true" {% if rr_urgent == "true" %}selected{% endif %}>緊急</option>
+        <option value="false" {% if rr_urgent == "false" %}selected{% endif %}>非緊急</option>
+      </select>
+    </label>
+    <label>處置記錄關鍵字 ActionLog.note
+      <input type="text" name="al_note" value="{{ al_note }}">
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary">查詢</button>
+  <a href="{% url 'incident_search' %}" class="btn btn-secondary">清除條件</a>
+</form>
+
+<div class="search-result">
+  <p class="result-count">查詢結果：{{ count }} 筆</p>
+  {% for incident in incidents %}
+    <div class="incident-card {% if incident.is_active %}active{% else %}closed{% endif %}">
+      <div class="card-top">
+        <span class="badge-priority">P{{ incident.priority }}</span>
+        <span class="badge-category">{{ incident.category }}</span>
+        <span class="badge-status {% if incident.is_active %}badge-active{% else %}badge-closed{% endif %}">
+          {% if incident.is_active %}處理中{% else %}已結案{% endif %}
+        </span>
+      </div>
+      <h3>#{{ incident.pk }} {{ incident.title }}</h3>
+      <p>{{ incident.location }}</p>
+      <p>通報者：{{ incident.reporter.username }}</p>
+      <p>{{ incident.created_at }}</p>
+      <a href="{{ incident.get_absolute_url }}" class="btn btn-sm">進入詳細</a>
+    </div>
+  {% empty %}
+    <p class="empty-msg">查無符合條件的資料。</p>
+  {% endfor %}
+</div>
+{% endblock %}

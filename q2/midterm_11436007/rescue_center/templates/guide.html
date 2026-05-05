@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+  <h1>應變指引</h1>
+  <p>{% now "DATETIME_FORMAT" %}</p>
+</div>
+
+{% comment %} 3 層巢狀 for loop {% endcomment %}
+{% if guide_data %}
+  {% for category, stages in guide_data.items %}
+    <div class="guide-category">
+      <h2>{{ forloop.counter }}. {{ category }}</h2>
+      {% for stage, items in stages.items %}
+        <div class="guide-stage {% if forloop.first %}first-stage{% endif %} {% if forloop.last %}last-stage{% endif %}">
+          <h3>{{ stage }}</h3>
+          <ul>
+            {% for item in items %}
+              <li>{{ forloop.counter }}. {{ item|title }}</li>
+            {% empty %}
+              <li>（無項目）</li>
+            {% endfor %}
+          </ul>
+          <p class="item-count">共 {{ items|length }} 個檢查項目</p>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+{% else %}
+  <p class="empty-msg">目前沒有應變指引資料。</p>
+{% endif %}
+{% endblock %}
