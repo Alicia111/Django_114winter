@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>所有新聞</h2>
+{% for article in article_list %}
+<div class="article-entry">
+  <h3><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
+  <p>作者：{{ article.author }} ｜ 發布時間：{{ article.date|date:"Y-m-d H:i" }}</p>
+  <p>{{ article.body|truncatechars:120 }}</p>
+</div>
+<hr>
+{% empty %}
+<p>目前還沒有任何新聞，<a href="{% url 'article_new' %}">寫一篇吧</a>！</p>
+{% endfor %}
+{% endblock content %}

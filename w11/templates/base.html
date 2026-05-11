@@ -1,0 +1,30 @@
+{% load static %}
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Newspaper</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&display=swap"
+        rel="stylesheet">
+  <link href="{% static 'css/base.css' %}" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <h1><a href="{% url 'article_list' %}">The Daily Newspaper</a></h1>
+    <nav>
+      <a href="{% url 'article_list' %}">Articles</a>
+      ｜
+      <a href="{% url 'article_new' %}">+ New Article</a>
+    </nav>
+  </header>
+  <hr>
+  <main>
+    {% block content %}
+    {% endblock content %}
+  </main>
+</body>
+
+</html>

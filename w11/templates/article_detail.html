@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="article-entry">
+  <h2>{{ article.title }}</h2>
+  <p>作者：{{ article.author }} ｜ 發布時間：{{ article.date|date:"Y-m-d H:i" }}</p>
+  <p>{{ article.body|linebreaks }}</p>
+</div>
+<div>
+  <p>
+    <a href="{% url 'article_edit' article.pk %}">+ Edit</a>
+    ｜
+    <a href="{% url 'article_delete' article.pk %}">+ Delete</a>
+    ｜
+    <a href="{% url 'article_list' %}">← Back to list</a>
+  </p>
+</div>
+{% endblock content %}

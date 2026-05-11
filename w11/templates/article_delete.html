@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>刪除新聞</h2>
+<form action="" method="post">{% csrf_token %}
+  <p>確定要刪除「{{ article.title }}」嗎？</p>
+  <input type="submit" value="Confirm">
+  <a href="{% url 'article_detail' article.pk %}">取消</a>
+</form>
+{% endblock content %}
