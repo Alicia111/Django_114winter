@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Newspaper App{% endblock title %}</title>
+  <style>
+    :root { color-scheme: light; }
+    body {
+      margin: 2rem;
+      font-family: Arial, "Microsoft JhengHei", sans-serif;
+      line-height: 1.5;
+      background: #f7f7f2;
+      color: #1f2933;
+    }
+    a { color: #0b5cad; }
+    button {
+      padding: 0.35rem 0.75rem;
+      background: #0b5cad;
+      color: white;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    {% block content %}
+    {% endblock content %}
+  </main>
+</body>
+</html>

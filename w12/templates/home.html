@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  <p>Hi {{ user.username }}! You are {{ user.age }} years old.</p>
+  {% if user.is_staff %}
+    <section>
+      <h2>Manager view</h2>
+      <p>You can open the admin site and assign users to Groups.</p>
+      <p><a href="{% url 'admin:index' %}">Open admin</a></p>
+    </section>
+  {% endif %}
+  {% for role in role_cards %}
+    <section>
+      <h2>{{ role.name }}</h2>
+      <p>{{ role.message }}</p>
+    </section>
+  {% empty %}
+    {% if not user.is_staff %}
+      <p>No role assigned yet. Ask the manager to choose a Group for this account.</p>
+    {% endif %}
+  {% endfor %}
+  <form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Log Out</button>
+  </form>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a> |
+  <a href="{% url 'signup' %}">Sign Up</a>
+{% endif %}
+{% endblock content %}
