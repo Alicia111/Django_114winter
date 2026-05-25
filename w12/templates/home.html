@@ -5,6 +5,7 @@
 {% block content %}
 {% if user.is_authenticated %}
   <p>Hi {{ user.username }}! You are {{ user.age }} years old.</p>
+  <p>Address: {{ user.address|default:"(not provided yet)" }}</p>
   {% if user.is_staff %}
     <section>
       <h2>Manager view</h2>

@@ -11,10 +11,11 @@ class CustomUserCreationForm(UserCreationForm):
             "username",
             "email",
             "age",
+            "address",
         )
 
 
-# Admin change form: lets the manager edit email and age in /admin/.
+# Admin change form: lets the manager edit email, age, and address in /admin/.
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
@@ -22,4 +23,5 @@ class CustomUserChangeForm(UserChangeForm):
             "username",
             "email",
             "age",
+            "address",
         )

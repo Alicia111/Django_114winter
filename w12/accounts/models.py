@@ -6,3 +6,4 @@ from django.db import models
 # `age` is displayed on the homepage in Stage 2.
 class CustomUser(AbstractUser):
     age = models.PositiveIntegerField(null=True, blank=True)
+    address = models.CharField(max_length=255, blank=True, default="")
