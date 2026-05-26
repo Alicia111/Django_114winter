@@ -1,0 +1,99 @@
+:root {
+  color-scheme: light;
+  --bg: #fdfaf4;
+  --ink: #1f2933;
+  --muted: #6b6157;
+  --accent: #8b2a1f;
+  --line: #d9cfbf;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 2.5rem clamp(1rem, 4vw, 4rem);
+  font-family: "Noto Serif TC", "Microsoft JhengHei", "PingFang TC", serif;
+  line-height: 1.6;
+  background: var(--bg);
+  color: var(--ink);
+  max-width: 960px;
+  margin-inline: auto;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color .15s ease;
+}
+a:hover { border-bottom-color: var(--accent); }
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .75rem 1.25rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 2px solid var(--ink);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .85rem;
+}
+nav a { color: var(--ink); font-weight: 600; }
+nav form { display: inline-flex; margin: 0; }
+
+button {
+  padding: .35rem .9rem;
+  background: var(--ink);
+  color: #fff;
+  border: 0;
+  border-radius: 2px;
+  font-family: inherit;
+  cursor: pointer;
+  letter-spacing: .05em;
+}
+button:hover { background: var(--accent); }
+
+h1, h2, h3 {
+  font-family: "Noto Serif TC", "Microsoft JhengHei", serif;
+  letter-spacing: .02em;
+  color: var(--ink);
+}
+h1 { font-size: 2.2rem; margin-top: 0; }
+
+article, section {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  background: #fffdf8;
+  border-left: 3px solid var(--accent);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .04);
+}
+
+article h2 { margin: 0 0 .5rem; }
+article p { margin: .4rem 0; }
+
+form p { margin: .6rem 0; }
+input[type="text"], input[type="email"], input[type="password"],
+input[type="number"], textarea {
+  width: 100%;
+  padding: .5rem .6rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  font-family: inherit;
+  background: #fff;
+}
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(139, 42, 31, .15);
+}
+
+label {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .75rem;
+  color: var(--muted);
+  margin-bottom: .2rem;
+}

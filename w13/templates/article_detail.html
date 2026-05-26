@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }}{% endblock title %}
+
+{% block content %}
+<article>
+  <h1>{{ article.title }}</h1>
+  <p>by {{ article.author }} | {{ article.date }}</p>
+  <p>{{ article.body }}</p>
+</article>
+
+<section>
+  <h2>Comments</h2>
+  {% for comment in article.comment_set.all %}
+    <p><strong>{{ comment.author }}</strong> &middot; {{ comment }}</p>
+  {% empty %}
+    <p>No comments yet.</p>
+  {% endfor %}
+</section>
+
+<section>
+  <h2>Add a comment</h2>
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Comment</button>
+  </form>
+</section>
+
+{% if article.author.pk == request.user.pk %}
+  <p>
+    <a href="{% url 'article_edit' article.pk %}">Edit</a> |
+    <a href="{% url 'article_delete' article.pk %}">Delete</a>
+  </p>
+{% endif %}
+<p><a href="{% url 'article_list' %}">Back to all articles</a></p>
+{% endblock content %}
