@@ -1,0 +1,20 @@
+{% extends '_base.html' %}
+{% block content %}
+<h2>All Questions</h2>
+{% if questions %}
+<table>
+  <tr><th>Title</th><th>Author</th><th>Category</th><th>Status</th><th>Course Code</th></tr>
+  {% for q in questions %}
+  <tr>
+    <td><a href="/questions/{{ q.pk }}/">{{ q.title }}</a></td>
+    <td>{{ q.author.username }}</td>
+    <td>{{ q.category }}</td>
+    <td>{{ q.status }}</td>
+    <td>{{ q.course_code }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No questions yet.</p>
+{% endif %}
+{% endblock %}

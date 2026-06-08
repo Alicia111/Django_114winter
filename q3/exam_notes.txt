@@ -1,0 +1,9 @@
+Student ID: 11436007
+Users created: student_owner_11436007, student_other_11436007, teacher_11436007, secretary_11436007, admin_11436007
+Roles created: Student（student_owner、student_other）、Teacher（teacher）、Secretary（secretary）、Admin/superuser（admin）
+One question title: How to submit homework?
+One comment text: Good question! My student ID is 11436007 and I have the same doubt.
+Teacher status change: teacher_11436007 登入後到 /questions/<pk>/manage/，可以把 status 改成 Open、Answered 或 Closed
+Secretary update: secretary_11436007 登入後到 /questions/<pk>/manage/，可以修改 category、course_code，以及把 status 設為 Closed
+One bug you fixed: SecretaryManageForm 的 status 選項限制為只有 Closed，避免 Secretary 把問題改成 Open 或 Answered
+One Django concept you used: 使用 Django Groups 實作角色權限——每個使用者加入對應的群組（Student／Teacher／Secretary），views 透過 user.groups 判斷允許的操作

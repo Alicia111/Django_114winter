@@ -1,0 +1,36 @@
+{% extends '_base.html' %}
+{% block content %}
+<h2>{{ question.title }}</h2>
+<p><strong>Author:</strong> {{ question.author.username }}</p>
+<p><strong>Category:</strong> {{ question.category }}</p>
+<p><strong>Status:</strong> {{ question.status }}</p>
+<p><strong>Course Code:</strong> {{ question.course_code }}</p>
+<p><strong>Created:</strong> {{ question.created_at }}</p>
+<hr>
+<p>{{ question.body }}</p>
+<hr>
+
+{% if can_edit %}
+  <a href="/questions/{{ question.pk }}/edit/">[Edit]</a>
+{% endif %}
+{% if can_delete %}
+  <a href="/questions/{{ question.pk }}/delete/">[Delete]</a>
+{% endif %}
+{% if can_manage %}
+  <a href="/questions/{{ question.pk }}/manage/">[Manage]</a>
+{% endif %}
+
+<h3>Comments</h3>
+{% for comment in question.comments.all %}
+  <p><strong>{{ comment.author.username }}</strong>: {{ comment.body }}</p>
+{% empty %}
+  <p>No comments yet.</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+  <a href="/questions/{{ question.pk }}/comment/">Add Comment</a>
+{% endif %}
+
+<br><br>
+<a href="/questions/">Back to list</a>
+{% endblock %}

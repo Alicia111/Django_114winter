@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Course Q&A Board</title>
+  <style>
+    body { font-family: sans-serif; max-width: 900px; margin: 0 auto; padding: 1em; }
+    nav { background: #333; padding: 0.5em 1em; margin-bottom: 1.5em; }
+    nav a { color: #fff; text-decoration: none; margin-right: 1em; }
+    nav a:hover { text-decoration: underline; }
+    nav span { color: #ccc; margin-right: 1em; }
+    .msg-success { color: green; }
+    .msg-error { color: red; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 0.4em 0.8em; text-align: left; }
+    th { background: #eee; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/">Home</a>
+  <a href="/questions/">Questions</a>
+  <a href="/questions/open/">Open Questions</a>
+  {% if user.is_authenticated %}
+    {% if is_student %}
+      <a href="/questions/new/">New Question</a>
+    {% endif %}
+    {% if is_teacher or is_secretary %}
+      <a href="/questions/">Manage</a>
+    {% endif %}
+    {% if user.is_staff %}
+      <a href="/admin/">Admin</a>
+    {% endif %}
+    <span>Hi {{ user.username }}</span>
+    <form method="post" action="/accounts/logout/" style="display:inline">
+      {% csrf_token %}
+      <button type="submit" style="background:none;border:none;color:#fff;cursor:pointer;font-size:1em;padding:0;">Log Out</button>
+    </form>
+  {% else %}
+    <a href="/accounts/login/">Log In</a>
+    <a href="/accounts/signup/">Sign Up</a>
+  {% endif %}
+</nav>
+{% if messages %}
+  {% for message in messages %}
+    <p class="msg-{{ message.tags }}">{{ message }}</p>
+  {% endfor %}
+{% endif %}
+{% block content %}{% endblock %}
+</body>
+</html>
